@@ -1,4 +1,4 @@
-var peer = new Peer();
+var peer = new Peer(); //PeerJS 라이브러리의 인스턴스를 생성, PeerJS는 WebRTC의 signaling 과정을 쉽게 해주는 라이브러리
 
 
 const myFace = document.getElementById("myFace");
@@ -9,7 +9,7 @@ let remoteStream;
 navigator.mediaDevices.getUserMedia({
     video:true,
     audio:{
-      echoCancellation:true
+      echoCancellation:true //오디오 사용 + 에코 제거
     }
   }).then(stream =>{
     myFace.muted = true;
@@ -40,14 +40,18 @@ navigator.mediaDevices.getUserMedia({
   
   
   function connectToNewUser(userId,stream){
-    const call = peer.call(userId,stream);
+    const call = peer.call(userId,stream); //다른 사용자의 Peer ID로 연결 요청
     console.log('call보내는중')
     
   
     call.on('stream',(userVideoStream)=>{
-     peerFace.srcObject = userVideoStream;
+      peerFace.srcObject = userVideoStream;
       remoteStream = userVideoStream;
-     peerFace.play();
+      peerFace.onloadedmetadata = () => {
+        peerFace.play().catch((error) => {
+            console.warn("peerFace play() error:", error);
+        });
+      };
       console.log('play');
   
     })

@@ -61,8 +61,8 @@ MongoClient.connect(process.env.MONGODB_URL,function(error,client){
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: constant.EMAIL_SAMPLE,  
-    pass: constant.EMAIL_PASS,
+    user: process.env.GOOGLE_EMAIL,  
+    pass: process.env.GOOGLE_PASSWORD,
   },
 });
 
@@ -274,7 +274,7 @@ app.post('/findPassword',function(req,res){  // 비밀번호 찾기 POST 요청
    db.collection('user').findOne({'email': userEmail},function(error,result){
     let mailOption = transporter.sendMail(  // send mail with defined transport object
     {
-      from: constant.EMAIL_SAMPLE,  // 
+      from: process.env.GOOGLE_EMAIL,  // 
       to: userEmail, // 받는 사람 메일임
       subject: "[Assaa] 비밀번호 입니다.", // 메일 제목임
       // text: "인증코드는 [ " + authCode + " ] 입니다.", 이렇게 스트링+변수값+스트링 쓸때는 String literal 혹은 스트링 리터럴 쓰면됨
@@ -315,7 +315,7 @@ app.post('/mailAuth', function (req, res) {
 
   let mailOption = transporter.sendMail(  // send mail with defined transport object
     {
-      from: constant.EMAIL_SAMPLE,  // 
+      from: process.env.GOOGLE_EMAIL,  // 
       to: userEmail, // 받는 사람 메일
       subject: "[Assaa] 인증코드 입니다.", // 메일 제목
     

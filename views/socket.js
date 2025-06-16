@@ -260,7 +260,11 @@
         call.on('stream',userVideoStream=>{
           peerFace.srcObject = userVideoStream;
           remoteStream = userVideoStream;
-          peerFace.play();
+          peerFace.onloadedmetadata = () => {
+            peerFace.play().catch((error) => {
+                console.warn("peerFace play() error:", error);
+            });
+          };
         //   peerFace.volume=0;
         //   peerFace.muted=0;
           
