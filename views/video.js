@@ -40,7 +40,7 @@ navigator.mediaDevices.getUserMedia({
   
   
   function connectToNewUser(userId,stream){
-    const call = peer.call(userId,stream); //다른 사용자의 Peer ID로 연결 요청
+    const call = peer.call(userId,stream); //다른 사용자의 Peer ID로 연결 요청, 'userId'에 WebRTC Call 요청 보냄. stream은 내 영상/음성임
     console.log('call보내는중')
     
   

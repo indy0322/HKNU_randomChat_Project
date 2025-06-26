@@ -104,7 +104,7 @@
         handleCameraClick();
     })
 
-    peer.on('open',(id)=>{
+    peer.on('open',(id)=>{ //'open'은 PeerJS 서버와의 연결이 성공적으로 완료되었다는 것을 의미, id는 자동적으로 생성되고 상대방이 나에게 연결 요청을 보낼때 이 id가 주소역할로 사용됨.
         timerButton.addEventListener('click', async ()=>{
             // await getMedia()
             // makeConnection()
@@ -253,11 +253,11 @@
         // }//이 부분 합침
     })
 
-    peer.on('call',(call)=>{
+    peer.on('call',(call)=>{//'call'은 내가 상대방으로 부터 call요청을 받는 것을 의미한다. 다른 사람이 peer.call('상대방-id',stream객체)를 보낸것에 요청을 받았다고 응답을 하는 것. 
         console.log('답장보내는중');
-        call.answer(localStream);
+        call.answer(localStream);//'.answer()'은 상대방에게 나의 stream 객체를 전달하며 call에 응답하는 것.
     
-        call.on('stream',userVideoStream=>{
+        call.on('stream',userVideoStream=>{//'stream'은 상대의 stream을 받아서 재생한다.
           peerFace.srcObject = userVideoStream;
           remoteStream = userVideoStream;
           peerFace.onloadedmetadata = () => {
